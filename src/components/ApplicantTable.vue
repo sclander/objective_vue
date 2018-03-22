@@ -10,11 +10,15 @@
         <template v-for="job in formattedData.jobs">
           <template v-for="(applicant, $index_a) in job.applicants">
             <tr v-for="(skill, $index_s) in applicant.skills" :key="skill.id">
-              <td v-if="$index_a === 0 && $index_s === 0" :rowSpan="job.totalSkills">{{ job.name }}</td>
+              <td class="job-name" v-if="$index_a === 0 && $index_s === 0" :rowSpan="job.totalSkills">{{ job.name }}</td>
               <template v-if="$index_s === 0">
-                <td :rowSpan="applicant.skills.length">{{ applicant.name }}</td>
-                <td :rowSpan="applicant.skills.length">{{ applicant.email }}</td>
-                <td :rowSpan="applicant.skills.length">{{ applicant.website }}</td>
+                <td class="applicant-name" :rowSpan="applicant.skills.length">{{ applicant.name }}</td>
+                <td :rowSpan="applicant.skills.length">
+                  <a :href="`mailto:${applicant.email}`">{{ applicant.email }}</a>
+                </td>
+                <td :rowSpan="applicant.skills.length">
+                  <a :href="`http://${applicant.website}`">{{ applicant.website }}</a>
+                </td>
                 <td>{{ applicant.skills[0]['name']}}</td>
                 <td :rowSpan="applicant.skills.length">{{ applicant.cover_letter }}</td>
               </template>
